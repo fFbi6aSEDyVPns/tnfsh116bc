@@ -14,7 +14,7 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-3">
         <img src="17logo (tr).png" alt="Logo" class="w-22 h-16" />
-        <span class="font-bold text-lg">臺南一中百十六級雙語班 pre-Alpha <br /> TNFSH 116'th Bilingual Class</span>
+        <span class="font-bold text-lg">臺南一中百十六級雙語班 Alpha <br /> TNFSH 116'th Bilingual Class</span>
       </div>
       <div class="hidden md:flex space-x-6">
         <a href="index.html" class="nav-link">Home</a>>
@@ -28,8 +28,7 @@
 
   <main class="pt-36 p-8 container mx-auto">
     <h2 class="text-3xl font-bold mb-6">任課老師 Our Teachers</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="teachersContainer">
-    </div>
+    <div id="teachersContainer" class="container mx-auto px-6"></div>
   </main>
 
   <!-- Teacher Modal -->
@@ -53,64 +52,72 @@
   <script>
     // Teachers data
     const teachers = [
-      { name: 'Mr. Chen', id: 'T001', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
-      { name: 'Ms. Lin', id: 'T002', intro: 'English teacher, passionate about literature and drama performances.' },
-      { name: 'Dr. Wang', id: 'T003', intro: 'Mathematics professor with expertise in calculus and statistics.' },
-      { name: 'Ms. Zhang', id: 'T004', intro: 'Chemistry teacher who enjoys laboratory experiments and research.' },
-    ];
+      { name: 'Mr. Chen', category: '班級導師 Home Room Teacher', id: '英文 English', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
+      { name: 'Mr. Chen', category: '語文科 Language', id: '國文 Chinese', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
+      { name: 'Mr. Chen', category: '數學科 Mathematics', id: '數學 Math', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
+      { name: 'Ms. Lin', category: '自然科 Science', id: '物理 Physics', intro: 'English teacher, passionate about literature and drama performances.' },
+      { name: 'Dr. Wang', category: '自然科 Science', id: '化學 Chemistry', intro: 'Mathematics professor with expertise in calculus and statistics.' },
+      { name: 'Ms. Zhang', category: '自然科 Science', id: '生物 Biology', intro: 'Chemistry teacher who enjoys laboratory experiments and research.' },
+      { name: 'Mr. Chen', category: '自然科 Science', id: '地球科學 Earth Science', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
+      { name: 'Mr. Chen', category: '自然科 Science', id: '化學(一年級) Chemistry(1)', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
+      { name: 'Mr. Lee', category: '社會科 Social Studies', id: '歷史 History', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '社會科 Social Studies', id: '地理 Geography', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '社會科 Social Studies', id: '公民 Civic Education', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '社會科 Social Studies', id: '公民(一年級) Civic Education(1)', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '藝能科 Electives', id: '資訊 Computer Science', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '藝能科 Electives', id: '藝術 Arts', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '藝能科 Electives', id: '國防 National Defense Education', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '藝能科 Electives', id: '體育 Physical Education', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      //{ name: 'Mr. Lee', category: '藝能科 Electives', id: '音樂 Music', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '藝能科 Electives', id: '生活科技 STEM', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      { name: 'Mr. Lee', category: '藝能科 Electives', id: '本土語(閩南語) Taiwanese (Hokkien)', intro: 'History teacher, loves archaeology and teaching about the past.' },
+      
+  ];
 
-    // Generate teacher cards
-    function generateTeacherCards() {
-      const container = document.getElementById('teachersContainer');
-      container.innerHTML = '';
+  document.addEventListener('DOMContentLoaded', () => {
+  function generateTeacherCards() {
+    const container = document.getElementById('teachersContainer');
+    container.innerHTML = '';
 
-      teachers.forEach(({name, id, intro}) => {
-        const card = document.createElement('div');
-        card.className = 'bg-white p-6 shadow-lg rounded-lg cursor-pointer hover:scale-105 transform transition duration-300';
-        card.onclick = () => showTeacherIntro(name, id, intro);
+    const categories = [...new Set(teachers.map(t => t.category))];
 
-        const h3 = document.createElement('h3');
-        h3.className = 'text-xl font-semibold';
-        h3.textContent = name;
+    categories.forEach(category => {
+      // 科別標題
+      const catTitle = document.createElement('h3');
+      catTitle.textContent = category;
+      catTitle.className = 'text-2xl font-bold mb-4 mt-8';
+      container.appendChild(catTitle);
 
-        const p = document.createElement('p');
-        p.className = 'text-gray-600';
-        p.textContent = id;
+      // 科別老師 grid
+      const catContainer = document.createElement('div');
+      catContainer.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8 bg-gray-100 p-6 rounded-lg';
 
-        card.appendChild(h3);
-        card.appendChild(p);
-        container.appendChild(card);
-      });
-    }
+      teachers
+        .filter(t => t.category === category)
+        .forEach(({name, id, intro}) => {
+          const card = document.createElement('div');
+          card.className = 'bg-white p-6 shadow-lg rounded-lg cursor-pointer hover:scale-105 transform transition duration-300';
+          card.onclick = () => showTeacherIntro(name, id, intro);
 
-    // Teacher modal functions
-    function showTeacherIntro(name, number, intro) {
-      document.getElementById("modalTeacherName").textContent = name;
-      document.getElementById("modalTeacherNumber").textContent = number;
-      document.getElementById("modalTeacherIntro").textContent = intro;
-      document.getElementById("teacherModal").classList.remove("hidden");
-    }
+          const h3 = document.createElement('h3');
+          h3.className = 'text-xl font-semibold';
+          h3.textContent = name;
 
-    function closeTeacherModal() {
-      document.getElementById("teacherModal").classList.add("hidden");
-    }
+          const p = document.createElement('p');
+          p.className = 'text-gray-600';
+          p.textContent = id;
 
-    // Smooth scroll for nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', e => {
-        const href = link.getAttribute('href');
-        if (href.startsWith('#')) {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-      });
+          card.appendChild(h3);
+          card.appendChild(p);
+          catContainer.appendChild(card);
+        });
+
+      container.appendChild(catContainer);
     });
+  }
 
-    // Initialize when page loads
-    document.addEventListener('DOMContentLoaded', generateTeacherCards);
+  generateTeacherCards();
+});
   </script>
 </body>
 </html>

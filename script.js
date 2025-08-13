@@ -54,6 +54,37 @@ const students = [
   { name: 'Jane Smith', id: '2', intro: 'Jane is passionate about science, painting, and volunteering.' },
   { name: 'Alice Chen', id: '3', intro: 'Alice likes reading, hiking, and chess.' },
   { name: 'Bob Lee', id: '4', intro: 'Bob enjoys music, photography, and cooking.' },
+  { name: 'John Doe', id: '5', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '6', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '7', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '8', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '9', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '10', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '11', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '12', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '13', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '14', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '15', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '16', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '17', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '18', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '19', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '20', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '21', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '22', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '23', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '24', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '25', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '26', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '27', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '28', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '29', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '30', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '31', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '32', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '33', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '34', intro: 'John loves math, plays basketball, and enjoys coding.' },
+  { name: 'John Doe', id: '35', intro: 'John loves math, plays basketball, and enjoys coding.' },
 ];
 
 function showStudentIntro(name, number, intro) {
@@ -90,46 +121,4 @@ students.forEach(({name, id, intro}) => {
 
 
 
-//teachers card
-// Teachers data and functions
-const teachers = [
-  { name: 'Mr. Chen', id: 'T001', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
-  { name: 'Ms. Lin', id: 'T002', intro: 'English teacher, passionate about literature and drama performances.' },
-  { name: 'Dr. Wang', id: 'T003', intro: 'Mathematics professor with expertise in calculus and statistics.' },
-  { name: 'Ms. Zhang', id: 'T004', intro: 'Chemistry teacher who enjoys laboratory experiments and research.' },
-];
 
-// Generate teacher cards (only run if on teachers page)
-function generateTeacherCards() {
-  const container = document.getElementById('teachersContainer');
-  if (!container) return; // Exit if not on teachers page
-  
-  container.innerHTML = '';
-
-  teachers.forEach(({name, id, intro}) => {
-    const card = document.createElement('div');
-    card.className = 'bg-white p-6 shadow-lg rounded-lg cursor-pointer hover:scale-105 transform transition duration-300';
-    card.onclick = () => showTeacherIntro(name, id, intro);
-
-    const h3 = document.createElement('h3');
-    h3.className = 'text-xl font-semibold';
-    h3.textContent = name;
-
-    const p = document.createElement('p');
-    p.className = 'text-gray-600';
-    p.textContent = id;
-
-    card.appendChild(h3);
-    card.appendChild(p);
-    container.appendChild(card);
-  });
-}
-
-// Close teacher modal
-function closeTeacherModal() {
-  const modal = document.getElementById("teacherModal");
-  if (modal) modal.classList.add("hidden");
-}
-
-// Initialize teacher cards when page loads
-document.addEventListener('DOMContentLoaded', generateTeacherCards);

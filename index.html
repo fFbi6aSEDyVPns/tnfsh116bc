@@ -14,7 +14,7 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-3">
         <img src="17logo (tr).png" alt="Logo" class="w-22 h-16">
-        <span class="font-bold text-lg ">臺南一中百十六級雙語班 preAlpha <br> TNFSH 116'th Bilingual Class</span>
+        <span class="font-bold text-lg ">臺南一中百十六級雙語班 Alpha <br> TNFSH 116'th Bilingual Class</span>
       </div>
       <div class="hidden md:flex space-x-6">
         <a href="students.html" class="nav-link">Students</a>
@@ -33,7 +33,7 @@
         <span class="text-5xl font-semibold">TNFSH 116'th Bilingual Class</span>
       </h1>
       <p class="text-2xl mt-8 mb-8 font-semibold animate-fade-in" style="font-family:Times New Roman;">Where knowledge meets creativity</p>
-      This is a pre-alpha version of the website, so some links may not work.<br>
+      This is a alpha version of the website, expect bugs.<br>
        <a href="#about" 
           class="inline-block px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105">
          Learn More
@@ -45,8 +45,13 @@
   <section id="about" class="py-20 container mx-auto px-6">
     <h2 class="text-3xl font-bold mb-6 text-center ">關於我們 About us</h2>
     <p class="text-center max-w-2xl mx-auto">
-      We are the 116th bilingual class of TNFSH, dedicated to academic excellence and cultural exchange. Our mission is to inspire curiosity, foster understanding, and encourage innovation among students.
+      Hello! We are the bilingual class of Tainan First Senior High, class of 2027. <br>We are dedicated to academic excellence and cultural exchange. Proudly producing content since December 2024, we love making fun little videos that we hope you enjoy 🙂
     </p>
+
+    <div class="max-w-2xl mx-auto text-right text-gray-700">
+    <p></p>
+    <p>本班 楊禾振 Nate 撰寫</p>
+  </div>
   </section>
 
   <!-- Projects -->
@@ -64,16 +69,34 @@
 
   <!-- Contact -->
   <section id="contact" class="py-20 container mx-auto px-6">
-    <h2 class="text-3xl font-bold mb-6 text-center">聯絡 Contact Us (還不能使用)</h2>
-    <form class="max-w-lg mx-auto space-y-4">
-      <input type="text" placeholder="Your Name" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
-      <input type="email" placeholder="Your Email" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
-      <textarea placeholder="Your Message" rows="4" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"></textarea>
+    <h2 class="text-3xl font-bold mb-6 text-center">聯絡 Contact Us</h2>
+    <form class="max-w-lg mx-auto space-y-4" action="https://getform.io/f/bjjrjmqb" method="POST">
+      <input type="text" placeholder="Your Name" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" name="name" required>
+      <input type="email" placeholder="Your Email" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" name="email" required>
+      <textarea placeholder="Your Message" rows="4" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" name="message"></textarea>
       <button type="submit" class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg transition transform hover:scale-105">
         Send Message
       </button>
     </form>
+    
   </section>
+  <!-- Footer -->
+  <footer class="text-white py-6" style="background-color: #2D3E48;">
+  <div class="container mx-auto">
+    <p class="text-sm mt-2 text-left ml-4 ">Email : tnfshbilingual116th@gmail.com</p>
+
+    <div style="display: flex; gap: 20px; margin-left: 30px; margin-top: 10px;">
+      <a href="https://www.instagram.com/tnfsh.bilingual_116th/" target="_blank">
+        <img src="ig pic.png" alt="Instagram" style="width: 50px; height: 50px;">
+      </a>
+      <a href="https://www.threads.com/@tnfsh.bilingual_116th?xmt=AQF0_dPDGC6luc6LDdNrDe5CyqAqZoKptT9uBShyQIOnCdE" target="_blank">
+        <img src="threads pic.png" alt="Threads" style="width: 50px; height: 50px;">
+      </a>
+    </div>
+    <p class="text-sm text-center ">&copy; 2025 TNFSH 116'th Bilingual Class. All rights reserved.</p>
+    
+  </div>
+</footer>
 
   <script src="script.js"></script>
 </body>
