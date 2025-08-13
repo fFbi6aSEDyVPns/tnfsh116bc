@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teachers - TNFSH 116'th Bilingual Class</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="fixed w-full bg-white shadow-lg z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="17logo (tr).png" alt="Logo" class="w-22 h-16" />
+        <span class="font-bold text-lg">臺南一中百十六級雙語班 pre-Alpha <br /> TNFSH 116'th Bilingual Class</span>
+      </div>
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html" class="nav-link">Home</a>>
+        <a href="students.html" class="nav-link">Students</a>
+        <a href="teachers.html" class="nav-link">Teachers</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-36 p-8 container mx-auto">
+    <h2 class="text-3xl font-bold mb-6">任課老師 Our Teachers</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="teachersContainer">
+    </div>
+  </main>
+
+  <!-- Teacher Modal -->
+  <div
+    id="teacherModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+  >
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+      <h3 id="modalTeacherName" class="text-2xl font-bold mb-2"></h3>
+      <p id="modalTeacherNumber" class="text-gray-600 mb-4"></p>
+      <p id="modalTeacherIntro" class="mb-4"></p>
+      <button
+        onclick="closeTeacherModal()"
+        class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 transition"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Teachers data
+    const teachers = [
+      { name: 'Mr. Chen', id: 'T001', intro: 'Teaches Physics and Robotics, loves hiking and outdoor adventures.' },
+      { name: 'Ms. Lin', id: 'T002', intro: 'English teacher, passionate about literature and drama performances.' },
+      { name: 'Dr. Wang', id: 'T003', intro: 'Mathematics professor with expertise in calculus and statistics.' },
+      { name: 'Ms. Zhang', id: 'T004', intro: 'Chemistry teacher who enjoys laboratory experiments and research.' },
+    ];
+
+    // Generate teacher cards
+    function generateTeacherCards() {
+      const container = document.getElementById('teachersContainer');
+      container.innerHTML = '';
+
+      teachers.forEach(({name, id, intro}) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-6 shadow-lg rounded-lg cursor-pointer hover:scale-105 transform transition duration-300';
+        card.onclick = () => showTeacherIntro(name, id, intro);
+
+        const h3 = document.createElement('h3');
+        h3.className = 'text-xl font-semibold';
+        h3.textContent = name;
+
+        const p = document.createElement('p');
+        p.className = 'text-gray-600';
+        p.textContent = id;
+
+        card.appendChild(h3);
+        card.appendChild(p);
+        container.appendChild(card);
+      });
+    }
+
+    // Teacher modal functions
+    function showTeacherIntro(name, number, intro) {
+      document.getElementById("modalTeacherName").textContent = name;
+      document.getElementById("modalTeacherNumber").textContent = number;
+      document.getElementById("modalTeacherIntro").textContent = intro;
+      document.getElementById("teacherModal").classList.remove("hidden");
+    }
+
+    function closeTeacherModal() {
+      document.getElementById("teacherModal").classList.add("hidden");
+    }
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', generateTeacherCards);
+  </script>
+</body>
+</html>

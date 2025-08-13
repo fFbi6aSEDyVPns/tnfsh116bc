@@ -1,0 +1,43 @@
+/* Fade in animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+
+.animate-fade-in-down {
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+/* Navbar link hover */
+.nav-link {
+  color: #4B5563;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #10B981;
+  transform: translateY(-2px);
+}
+
+/* Project cards hover effect */
+.project-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+}
+
+.instagram-media {
+    max-width: 500px !important; /* change this number to scale up */
+    width: 100% !important;      /* make it responsive */
+  }
