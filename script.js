@@ -27,6 +27,22 @@ document.querySelectorAll('section').forEach(section => {
   observer.observe(section);
 });
 
+//dropdown list control
+const menuBtn = document.getElementById("menu-btn");
+  const menu = document.getElementById("menu");
+
+  menuBtn.addEventListener("click", () => {
+    if (menu.classList.contains("max-h-0")) {
+      menu.classList.remove("max-h-0");
+      menu.classList.add("max-h-96"); // show
+    } else {
+      menu.classList.remove("max-h-96");
+      menu.classList.add("max-h-0"); // hide
+    }
+  });
+
+
+
 // Student modal
 function showStudentIntro(name, number, intro) {
   document.getElementById("modalName").textContent = name;
