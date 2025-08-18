@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const PORT = 3000;
-const PASSWORD = "11617biadmin"; // shared password
+const PASSWORD = process.env.SITE_PASSWORD || "defaultpassword"; // shared password
 const COOKIE_NAME = "auth";
 
 // Serve login page publicly
