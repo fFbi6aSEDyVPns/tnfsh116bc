@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const PASSWORD = process.env.SITE_PASSWORD || "defaultpassword"; // shared password
 const COOKIE_NAME = "auth";
 
@@ -49,5 +49,5 @@ app.get("/", auth, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at process.env.PORT || ${PORT}`);
 });
