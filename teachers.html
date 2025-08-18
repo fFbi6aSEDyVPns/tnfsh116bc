@@ -167,6 +167,15 @@
 
   generateTeacherCards();
 });
+  function showTeacherIntro(name, id, intro) {
+    document.getElementById('modalTeacherName').textContent = name;
+    document.getElementById('modalTeacherNumber').textContent = id;
+    document.getElementById('modalTeacherIntro').textContent = intro;
+    document.getElementById('teacherModal').classList.remove('hidden');
+  }
+  function closeTeacherModal() {
+    document.getElementById('teacherModal').classList.add('hidden');
+  }
   </script>
   <script src="script.js"></script>
 </body>
