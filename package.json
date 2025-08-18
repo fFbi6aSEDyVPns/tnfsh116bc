@@ -1,9 +1,10 @@
 {
   "name": "17",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000t\u0000n\u0000f\u0000s\u0000h\u00001\u00001\u00006\u0000b\u0000c\u0000\r\u0000 \u0000",
-  "main": "script.js",
+  "description": "tnfsh116bc website",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
