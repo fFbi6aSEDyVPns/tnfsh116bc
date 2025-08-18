@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
-const PASSWORD = process.env.SITE_PASSWORD || "defaultpassword"; // shared password
+const PASSWORD =process.env.PASSWORD;  // shared password
 const COOKIE_NAME = "auth";
 
 // Serve login page publicly
@@ -49,5 +49,5 @@ app.get("/", auth, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at process.env.PORT || ${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
