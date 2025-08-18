@@ -48,6 +48,8 @@ app.get("/", auth, (req, res) => {
   res.redirect("/protected/index.html");
 });
 
+app.use(express.static("."));
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
