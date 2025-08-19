@@ -2,9 +2,9 @@
   "name": "17",
   "version": "1.0.0",
   "description": "tnfsh116bc website",
-  "main": "server.js",
+  "main": "frontend/server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node frontend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/fFbi6aSEDyVPns/tnfsh116bc#readme",
   "dependencies": {
     "cookie-parser": "^1.4.7",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
   }
 }
