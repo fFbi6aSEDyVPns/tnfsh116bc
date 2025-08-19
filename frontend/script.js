@@ -79,7 +79,7 @@ const students = [
   { name: '徐〇〇', id: '11', intro: 'A lovely student.' },
   { name: '高〇〇', id: '12', intro: 'A lovely student.' },
   { name: '郭〇〇', id: '13', intro: 'A lovely student.' },
-  { name: '陳宗穎 Joe', id: '14', intro: 'A guy still waiting to get his Canadian Visa.' , tags: [{ text: '精神人物', color: 'bg-gray-500' },{ text: 'Canada', color: 'bg-red-500' }]},
+  { name: '陳宗穎 Joe', id: '14', intro: 'A guy still waiting to get his Canadian Visa.' , tags: [{ text: '留學人', color: 'bg-gray-500' },{ text: 'Canada', color: 'bg-red-500' }]},
   { name: '陳〇〇', id: '15', intro: 'A lovely student.' },
   { name: '陳〇〇', id: '16', intro: 'A lovely student.' },
   { name: '黃〇〇', id: '17', intro: 'A lovely student.' },
