@@ -1,13 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-  <h2>Enter Password</h2>
-  <input type="password" id="password">
-  <button onclick="login()">Login</button>
-  <p id="error" style="color:red;"></p>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+  <!-- Navbar -->
+<nav class="fixed w-full bg-white shadow-lg z-50">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <div class="flex items-center space-x-3">
+      <img src="/17logo (tr).png" alt="Logo" class="w-22 h-16">
+      <span class="font-bold text-lg">
+        臺南一中百十六級雙語班 Alpha <br> TNFSH 116'th Bilingual Class
+      </span>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex space-x-6">
+      <a href="/index.html" class="nav-link">Home</a>>
+      <a href="/students.html" class="nav-link">Students</a>
+      <a href="/teachers.html" class="nav-link">Teachers</a>
+      <a href="/events.html" class="nav-link">Events</a>
+      <a href="/index.html#contact" class="nav-link">Contact</a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="md:hidden">
+      <button id="menu-btn" class="focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu with animation -->
+  <div id="menu" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out md:hidden bg-white shadow-lg">
+    <a href="index.html" class="block px-6 py-2 border-b hover:bg-gray-100">Home</a>
+    <a href="/students.html" class="block px-6 py-2 border-b hover:bg-gray-100">Students</a>
+    <a href="/teachers.html" class="block px-6 py-2 border-b hover:bg-gray-100">Teachers</a>
+    <a href="/events.html" class="block px-6 py-2 border-b hover:bg-gray-100">Events</a>
+    <a href="/index.html #contact" class="block px-6 py-2 hover:bg-gray-100">Contact</a>
+  </div>
+</nav>
+<main class="pt-40 container mx-auto text-center flex-grow ">
+  <h2 class="text-2xl font-bold mb-4">Enter Password</h2>
+  <input type="password" id="password" class="border px-3 py-2 rounded mb-4">
+  <button onclick="login()" class="ml-1 px-4 py-2 rounded bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105">
+    Login
+  </button>
+  <p id="error" class="text-red-500 mt-2"></p>
+</main>
+
+
+
 
   <script>
   async function login() {
@@ -26,8 +78,32 @@
     }
   }
 </script>
-  <footer>
-    <p>&copy; 2025 TNFSH 116'th Bilingual Class. All rights reserved.</p>
-  </footer>
+<script src="/script.js"></script>
+
+
+
+  <footer class="text-white py-6" style="background-color: #2D3E48;">
+  <div class="container mx-auto px-6">
+
+    <!-- Email row -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+      <p class="text-sm text-gray-300">Email: tnfshbilingual116th@gmail.com</p>
+
+      <!-- Social icons -->
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="https://www.instagram.com/tnfsh.bilingual_116th/" target="_blank">
+          <img src="/ig pic.png" alt="Instagram" class="w-10 h-10 hover:opacity-80 transition">
+        </a>
+        <a href="https://www.threads.com/@tnfsh.bilingual_116th?xmt=AQF0_dPDGC6luc6LDdNrDe5CyqAqZoKptT9uBShyQIOnCdE" target="_blank">
+          <img src="/threads pic.png" alt="Threads" class="w-10 h-10 hover:opacity-80 transition">
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <p class="text-sm text-center mt-6 text-gray-300">&copy; 2025 TNFSH 116'th Bilingual Class. All rights reserved.</p>
+
+  </div>
+</footer>
 </body>
 </html>

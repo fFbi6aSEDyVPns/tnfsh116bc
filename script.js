@@ -79,17 +79,17 @@ const students = [
   { name: '徐〇〇', id: '11', intro: 'A lovely student.' },
   { name: '高〇〇', id: '12', intro: 'A lovely student.' },
   { name: '郭〇〇', id: '13', intro: 'A lovely student.' },
-  { name: '陳〇〇', id: '14', intro: 'A lovely student.' },
+  { name: '陳宗穎 Joe', id: '14', intro: 'A guy still waiting to get his Canadian Visa.' , tags: [{ text: '精神人物', color: 'bg-gray-500' },{ text: 'Canada', color: 'bg-red-500' }]},
   { name: '陳〇〇', id: '15', intro: 'A lovely student.' },
   { name: '陳〇〇', id: '16', intro: 'A lovely student.' },
   { name: '黃〇〇', id: '17', intro: 'A lovely student.' },
   { name: '黃〇〇', id: '18', intro: 'A lovely student.' },
   { name: '黃〇〇', id: '19', intro: 'A lovely student.' },
-  { name: '楊禾振 Nate', id: '20', intro: 'A lovely student.' },
+  { name: '楊禾振 Nate', id: '20', intro: 'A lovely student.' , tags: [{ text: '班級影片創作者', color: 'bg-green-500' }]},
   { name: '楊〇〇', id: '21', intro: 'A lovely student.' },
   { name: '葉〇〇', id: '22', intro: 'A lovely student.' },
   { name: '鄒〇〇', id: '23', intro: 'A lovely student.' },
-  { name: '廖韋喆 Jerry', id: '24', intro: 'A lovely student.' },
+  { name: '廖韋喆 Jerry', id: '24', intro: 'A lovely student.',tags: [{ text: '網站製作', color: 'bg-gray-500' }]},
   { name: '劉〇〇', id: '25', intro: 'A lovely student.' },
   { name: '蔡〇〇', id: '26', intro: 'A lovely student.' },
   { name: '蔡〇〇', id: '27', intro: 'A lovely student.' },
@@ -97,11 +97,25 @@ const students = [
   { name: '盧〇〇', id: '29', intro: 'A lovely student.' },
   { name: '蕭〇〇', id: '30', intro: 'A lovely student.' },
   { name: '賴〇〇', id: '31', intro: 'A lovely student.' },
-  { name: '簡〇〇', id: '32', intro: 'A lovely student.' },
+  { name: '簡旭廷 Justin', id: '32', intro: 'A lovely student.',tags: [{ text: '網站製作意見協助', color: 'bg-gray-500' }] },
   { name: '羅〇〇', id: '33', intro: 'A lovely student.' },
   { name: '蘇〇〇', id: '34', intro: 'A lovely student.' },
-  { name: '康〇〇', id: '35', intro: 'A lovely student.' },
+  { name: '康〇〇', id: '35', intro: 'A lovely student.',tags: [{ text: 'Freshman', color: 'bg-gray-500' }]  },
 ];
+
+
+/*
+Available Tailwind colors
+bg-red-500 (red)
+bg-blue-500 (blue)
+bg-green-500 (green)
+bg-yellow-500 (yellow)
+bg-purple-500 (purple)
+bg-pink-500 (pink)
+bg-indigo-500 (indigo)
+bg-gray-500 (gray)
+bg-orange-500 (orange)
+*/
 
 function showStudentIntro(name, number, intro) {
   document.getElementById("modalName").textContent = name;
@@ -117,10 +131,32 @@ function closeModal() {
 const container = document.querySelector('main div.grid');
 container.innerHTML = ''; // 清空預設內容
 
-students.forEach(({name, id, intro}) => {
+students.forEach(({name, id, intro, tags}) => {
   const card = document.createElement('div');
-  card.className = 'bg-white p-6 shadow-lg rounded-lg cursor-pointer hover:scale-105 transform transition duration-300';
+  card.className = 'bg-white p-6 shadow-lg rounded-lg cursor-pointer hover:scale-105 transform transition duration-300 relative overflow-hidden';
   card.onclick = () => showStudentIntro(name, id, intro);
+
+  // Add tags if they exist
+  if (tags && tags.length > 0) {
+    const tagsContainer = document.createElement('div');
+    tagsContainer.className = 'absolute top-3 left-3 z-10 flex flex-wrap gap-1 max-w-full';
+    
+    tags.forEach((tag) => {
+      const tagElement = document.createElement('span');
+      const tagText = typeof tag === 'string' ? tag : tag.text;
+      const tagColor = typeof tag === 'string' ? 'bg-blue-500' : (tag.color || 'bg-blue-500');
+      
+      tagElement.className = `${tagColor} text-white text-xs px-2 py-1 rounded-full whitespace-nowrap`;
+      tagElement.textContent = tagText;
+      tagsContainer.appendChild(tagElement);
+    });
+    
+    card.appendChild(tagsContainer);
+  }
+
+  // Always add consistent top padding for all cards
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'pt-4';
 
   const h3 = document.createElement('h3');
   h3.className = 'text-xl font-semibold';
@@ -130,11 +166,11 @@ students.forEach(({name, id, intro}) => {
   p.className = 'text-gray-600';
   p.textContent = id;
 
-  card.appendChild(h3);
-  card.appendChild(p);
+  contentDiv.appendChild(h3);
+  contentDiv.appendChild(p);
+  card.appendChild(contentDiv);
   container.appendChild(card);
 });
-
 
 
 
