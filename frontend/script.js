@@ -97,7 +97,7 @@ const students = [
   { name: '盧〇〇', id: '29', intro: 'A lovely student.' },
   { name: '蕭〇〇', id: '30', intro: 'A lovely student.' },
   { name: '賴〇〇', id: '31', intro: 'A lovely student.' },
-  { name: '簡旭廷 Justin', id: '32', intro: 'A lovely student.',tags: [{ text: '網站製作意見協助', color: 'bg-gray-500' }] },
+  { name: '簡旭廷 Justin', id: '32', intro: 'A lovely student.',tags: [{ text: '網站意見提供', color: 'bg-gray-500' }] },
   { name: '羅〇〇', id: '33', intro: 'A lovely student.' },
   { name: '蘇〇〇', id: '34', intro: 'A lovely student.' },
   { name: '康〇〇', id: '35', intro: 'A lovely student.',tags: [{ text: 'Freshman', color: 'bg-gray-500' }]  },
