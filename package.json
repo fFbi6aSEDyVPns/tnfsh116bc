@@ -4,8 +4,7 @@
   "description": "tnfsh116bc website",
   "main": "frontend/server.js",
   "scripts": {
-    "start": "node frontend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node frontend/server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +20,9 @@
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
-    "sqlite3": "^5.1.7"
+    "pg": "^8.11.5"
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }

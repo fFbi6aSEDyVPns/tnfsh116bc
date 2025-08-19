@@ -1,39 +1,69 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
-const PASSWORD = process.env.PASSWORD || "1234"; // 方便測試，沒設定環境變數就用 1234
+const PASSWORD = process.env.PASSWORD || "1234"; // 登入密碼
 const COOKIE_NAME = "auth";
 
 // ----------------------
-// SQLite 初始化
+// DB 初始化：Postgres (Render) 或 SQLite (Local)
 // ----------------------
-const db = new sqlite3.Database(
-  path.join(__dirname, "..", "backend", "events.db"),
-  (err) => {
-    if (err) {
-      console.error("❌ Failed to connect to SQLite DB:", err.message);
-    } else {
-      console.log("✅ Connected to SQLite database");
-    }
-  }
-);
+let dbType = "sqlite";
+let db;
 
-// 建立資料表（若不存在）
-db.run(`
-  CREATE TABLE IF NOT EXISTS events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    start TEXT NOT NULL,
-    end TEXT
-  )
-`);
+if (process.env.DATABASE_URL) {
+  // --- Render / Production: Postgres ---
+  const { Pool } = require("pg");
+  dbType = "postgres";
+  db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+  });
+  console.log("✅ Using Postgres");
+
+  (async () => {
+    try {
+      await db.query(`
+        CREATE TABLE IF NOT EXISTS events (
+          id SERIAL PRIMARY KEY,
+          title TEXT NOT NULL,
+          start TEXT NOT NULL,
+          "end" TEXT
+        )
+      `);
+      console.log("✅ Events table ready in Postgres");
+    } catch (err) {
+      console.error("❌ Failed to init Postgres:", err);
+    }
+  })();
+} else {
+  // --- Local 開發: SQLite ---
+  const sqlite3 = require("sqlite3").verbose();
+  db = new sqlite3.Database(
+    path.join(__dirname, "..", "backend", "events.db"),
+    (err) => {
+      if (err) {
+        console.error("❌ Failed to connect to SQLite DB:", err.message);
+      } else {
+        console.log("✅ Connected to SQLite database");
+      }
+    }
+  );
+  db.run(`
+    CREATE TABLE IF NOT EXISTS events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      start TEXT NOT NULL,
+      end TEXT
+    )
+  `);
+  console.log("✅ Events table ready in SQLite");
+}
 
 // ----------------------
 // 登入系統
@@ -68,51 +98,69 @@ function auth(req, res, next) {
 }
 
 // ----------------------
-// 行事曆 API (受保護)
+// 行事曆 API
 // ----------------------
-app.get("/api/events", auth, (req, res) => {
-  db.all("SELECT * FROM events", [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
+app.get("/api/events", auth, async (req, res) => {
+  if (dbType === "postgres") {
+    try {
+      const result = await db.query("SELECT * FROM events ORDER BY id ASC");
+      res.json(result.rows);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
-    res.json(rows);
-  });
+  } else {
+    db.all("SELECT * FROM events ORDER BY id ASC", [], (err, rows) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json(rows);
+    });
+  }
 });
 
-app.post("/api/events", auth, (req, res) => {
+app.post("/api/events", auth, async (req, res) => {
   const { title, start, end } = req.body;
-  db.run(
-    "INSERT INTO events (title, start, end) VALUES (?, ?, ?)",
-    [title, start, end],
-    function (err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
+  if (dbType === "postgres") {
+    try {
+      const result = await db.query(
+        'INSERT INTO events (title, start, "end") VALUES ($1, $2, $3) RETURNING *',
+        [title, start, end]
+      );
+      res.json(result.rows[0]);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  } else {
+    db.run(
+      "INSERT INTO events (title, start, end) VALUES (?, ?, ?)",
+      [title, start, end],
+      function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ id: this.lastID, title, start, end });
       }
-      res.json({ id: this.lastID, title, start, end });
-    }
-  );
+    );
+  }
 });
 
-// 刪除活動
-app.delete("/api/events/:id", (req, res) => {
+app.delete("/api/events/:id", auth, async (req, res) => {
   const { id } = req.params;
-  db.run("DELETE FROM events WHERE id = ?", [id], function (err) {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: err.message });
+  if (dbType === "postgres") {
+    try {
+      await db.query("DELETE FROM events WHERE id = $1", [id]);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
-    res.json({ success: true });
-  });
+  } else {
+    db.run("DELETE FROM events WHERE id = ?", [id], function (err) {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ success: true });
+    });
+  }
 });
-
 
 // ----------------------
 // 保護頁面 + 靜態檔案
 // ----------------------
-// 受保護區（行事曆等）
 app.use("/protected", auth, express.static(path.join(__dirname, "protected")));
-
-// 公開靜態頁面
 app.use(express.static(__dirname));
 
 // ----------------------
