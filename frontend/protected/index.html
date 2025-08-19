@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret Site</title>
+</head>
+<body>
+  <h1>🎉 Welcome to the secret site!</h1>
+
+  <button onclick="goCalendar()">📅 Go to Calendar</button>
+  
+  <br><br>
+  
+  <!-- 登出按鈕 -->
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    async function logout() {
+      await fetch("/logout", { method: "POST" });
+      window.location.href = "/login"; // 回登入頁
+    }
+
+    function goCalendar() {
+      // 直接開 Node.js 保護的行事曆
+      window.location.href = "/protected/calendar.html"; 
+    }
+  </script>
+</body>
+</html>
