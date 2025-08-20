@@ -2,11 +2,15 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>班級行事曆</title>
+  <title>Class Calendar</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 <body class="bg-gray-50 p-4">
+  <a href="index.html" class="ml-1 px-4 py-2 rounded bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105">
+    ←
+  <button>Return</button>
+  </a>
   <div class="max-w-3xl mx-auto bg-white rounded shadow p-4">
     <div class="flex items-center justify-between mb-4">
       <button id="prevMonth" class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">&lt;</button>
@@ -22,10 +26,10 @@
     <table class="w-full mb-4 border">
       <thead>
         <tr class="bg-gray-100">
-          <th class="border p-2">節次</th>
-          <th class="border p-2">時間</th>
-          <th class="border p-2">科目</th>
-          <th class="border p-2">教師</th>
+          <th class="border p-2">Period</th>
+          <th class="border p-2">Time</th>
+          <th class="border p-2">Subject</th>
+          <th class="border p-2">Teacher</th>
         </tr>
       </thead>
       <tbody id="classBody"></tbody>

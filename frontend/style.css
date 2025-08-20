@@ -41,3 +41,8 @@
     max-width: 500px !important; /* change this number to scale up */
     width: 100% !important;      /* make it responsive */
   }
+
+/* Learn more Button */
+#about {
+  scroll-margin-top: 30vh; /* pushes the anchor down */
+}
