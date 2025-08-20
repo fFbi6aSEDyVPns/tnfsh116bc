@@ -14,19 +14,19 @@
     
     <!-- Logo -->
     <div class="flex items-center space-x-3">
-      <img src="/17logo (tr).png" alt="Logo" class="w-22 h-16">
+      <img src="/frontend/17logo (tr).png" alt="Logo" class="w-22 h-16">
       <span class="font-bold text-lg">
         臺南一中百十六級雙語班 Alpha <br> TNFSH 116'th Bilingual Class
       </span>
     </div>
 
     <!-- Desktop Menu -->
-    <div class="hidden md:flex space-x-6">
-      <a href="/index.html" class="nav-link">Home</a>>
-      <a href="/students.html" class="nav-link">Students</a>
-      <a href="/teachers.html" class="nav-link">Teachers</a>
-      <a href="/events.html" class="nav-link">Events</a>
-      <a href="/index.html#contact" class="nav-link">Contact</a>
+    <div class="hidden md:flex space-x-6 ">
+      <a href="/frontend/index.html" class="nav-link">Home</a>>
+      <a href="/frontend/students.html" class="nav-link">Students</a>
+      <a href="/frontend/teachers.html" class="nav-link">Teachers</a>
+      <a href="/frontend/events.html" class="nav-link">Events</a>
+      <a href="/frontend/index.html#contact" class="nav-link">Contact</a>
     </div>
 
     <!-- Mobile Hamburger -->
@@ -42,14 +42,15 @@
 
   <!-- Mobile Dropdown Menu with animation -->
   <div id="menu" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out md:hidden bg-white shadow-lg">
-    <a href="index.html" class="block px-6 py-2 border-b hover:bg-gray-100">Home</a>
-    <a href="/students.html" class="block px-6 py-2 border-b hover:bg-gray-100">Students</a>
-    <a href="/teachers.html" class="block px-6 py-2 border-b hover:bg-gray-100">Teachers</a>
-    <a href="/events.html" class="block px-6 py-2 border-b hover:bg-gray-100">Events</a>
-    <a href="/index.html #contact" class="block px-6 py-2 hover:bg-gray-100">Contact</a>
+    <a href="/frontend/index.html" class="block px-6 py-2 border-b hover:bg-gray-100">Home</a>
+    <a href="/frontend/students.html" class="block px-6 py-2 border-b hover:bg-gray-100">Students</a>
+    <a href="/frontend/teachers.html" class="block px-6 py-2 border-b hover:bg-gray-100">Teachers</a>
+    <a href="/frontend/events.html" class="block px-6 py-2 border-b hover:bg-gray-100">Events</a>
+    <a href="/frontend/index.html #contact" class="block px-6 py-2 hover:bg-gray-100">Contact</a>
   </div>
 </nav>
 <main class="pt-40 container mx-auto text-center flex-grow ">
+  <h1 class="text-4xl font-bold mb-6">116th 17's Private Space</h1>
   <h2 class="text-2xl font-bold mb-4">Enter Password</h2>
   <input type="password" id="password" class="border px-3 py-2 rounded mb-4">
   <button onclick="login()" class="ml-1 px-4 py-2 rounded bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105">
@@ -78,7 +79,7 @@
     }
   }
 </script>
-<script src="/script.js"></script>
+
 
 
 
@@ -92,10 +93,10 @@
       <!-- Social icons -->
       <div class="flex gap-4 mt-4 md:mt-0">
         <a href="https://www.instagram.com/tnfsh.bilingual_116th/" target="_blank">
-          <img src="/ig pic.png" alt="Instagram" class="w-10 h-10 hover:opacity-80 transition">
+          <img src="/frontend/ig pic.png" alt="Instagram" class="w-10 h-10 hover:opacity-80 transition">
         </a>
         <a href="https://www.threads.com/@tnfsh.bilingual_116th?xmt=AQF0_dPDGC6luc6LDdNrDe5CyqAqZoKptT9uBShyQIOnCdE" target="_blank">
-          <img src="/threads pic.png" alt="Threads" class="w-10 h-10 hover:opacity-80 transition">
+          <img src="/frontend/threads pic.png" alt="Threads" class="w-10 h-10 hover:opacity-80 transition">
         </a>
       </div>
     </div>
@@ -105,5 +106,17 @@
 
   </div>
 </footer>
+
+  <script src="/script.js"></script>
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+
+    menuBtn.addEventListener("click", () => {
+      const isOpen = menu.style.maxHeight && menu.style.maxHeight !== "0px";
+      menu.style.maxHeight = isOpen ? "0px" : "200px"; // Adjust height as needed
+    });
+  </script>
 </body>
 </html>

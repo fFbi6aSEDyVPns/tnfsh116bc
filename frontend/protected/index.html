@@ -1,12 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Secret Site</title>
+  <title>Landing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url("https://picsum.photos/1200/800?blur=3") no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #2D3E48;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    button {
+      background: #2D3E48; /* 半透明白 */
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 16px;
+      color: white;
+      backdrop-filter: blur(8px); /* 模糊玻璃效果 */
+      -webkit-backdrop-filter: blur(8px); /* Safari */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 250px;
+    }
+
+    button:hover {
+      background: #4f6e80;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    a button {
+      width: 250px;
+    }
+  </style>
 </head>
 <body>
-  <h1>🎉 Welcome to the secret site!</h1>
+  <h1>🎉 Welcome to 17's Private Space!</h1>
 
-  <button onclick="goCalendar()">📅 Go to Calendar</button>
+  <button onclick="goCalendar()">📅 Go to Calendar</button><br>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdklU7DE60t6ctXlnCaaOiW8URGIWOjzFH7xeBBv6Qt9euGcA/viewform" target="_blank">
+    <button>網站老師介紹</button>
+  </a><br>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeWirrGsbfapjcsrGBbXVnnki6AGgfkH7vpJpN4gOtDk_bTJg/viewform" target="_blank">
+    <button>網站117學生介紹</button>
+  </a><br>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScs2K7OXIKI7Zky2a9QbeTs2lt5jbUenkeBCPDpJgbLnX0UkQ/viewform?fbclid=IwY2xjawMSVtpleHRuA2FlbQIxMQBicmlkETFHc3M0bmFlQjlnd0RFRmVjAR4SHREf-QyAjNVilTwPAbdIl16fidWhHqnm2kkTpBtKssIeg33qqRyKpLBSIg_aem_JYBUi69qz6iqhHsjylXvmw" target="_blank">
+    <button>網站內容及設計意見表</button>
+  </a>
   
   <br><br>
   
