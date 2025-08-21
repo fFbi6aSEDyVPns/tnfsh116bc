@@ -7,13 +7,14 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
-    <!-- Return Button (absolute left) -->
+  <!-- Return Button -->
   <a href="../../index.html"
      class="absolute top-6 left-6 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105">
     ← Return
   </a>
 
   <h1 class="text-3xl font-bold mb-6">📌 班級留言板</h1>
+
   <!-- Add Message Form -->
   <form id="messageForm" class="w-full max-w-md bg-white p-4 rounded-2xl shadow mb-6">
     <input type="text" id="name" placeholder="Your name" required
@@ -30,47 +31,64 @@
   <div id="messages" class="w-full max-w-md space-y-4"></div>
 
   <script>
-    const API_URL = "http://localhost:3000/messages"; // change to Render URL when deployed
+    // 自動判斷：如果是 localhost 用本地 API，否則用 Render 的 API
+    const API_URL =
+      window.location.hostname.includes("localhost")
+        ? "http://localhost:3000/messages"
+        : "https://tnfsh116bc.onrender.com/message"; // 👈 改成你 Render 的網址
 
-    // Load messages
+    // 載入所有留言
     async function loadMessages() {
-      const res = await fetch(API_URL);
-      const data = await res.json();
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
 
-      const container = document.getElementById("messages");
-      container.innerHTML = "";
+        const container = document.getElementById("messages");
+        container.innerHTML = "";
 
-      data.data.forEach(msg => {
-        const div = document.createElement("div");
-        div.className = "bg-white p-4 rounded-2xl shadow flex flex-col";
+        if (!data.success) {
+          container.innerHTML = `<p class="text-red-500">⚠️ Failed to load messages</p>`;
+          return;
+        }
 
-        div.innerHTML = `
-          <div class="flex justify-between items-center">
-            <span class="font-bold">${msg.name}</span>
-            <span class="text-sm text-gray-500">${new Date(msg.created_at).toLocaleString()}</span>
-          </div>
-          <p class="mt-2">${msg.content}</p>
+        data.data.forEach(msg => {
+          const div = document.createElement("div");
+          div.className = "bg-white p-4 rounded-2xl shadow flex flex-col";
 
-          <div class="flex gap-2 mt-3">
-            <button onclick="deleteMessage(${msg.id})"
-              class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">
-              🗑 Delete
-            </button>
-            <button onclick="editMessage(${msg.id}, '${msg.content.replace(/'/g, "\\'")}')"
-              class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
-              ✏ Edit
-            </button>
-          </div>
-        `;
-        container.appendChild(div);
-      });
+          div.innerHTML = `
+            <div class="flex justify-between items-center">
+              <span class="font-bold">${msg.name}</span>
+              <span class="text-sm text-gray-500">${new Date(msg.created_at).toLocaleString()}</span>
+            </div>
+            <p class="mt-2">${msg.content}</p>
+
+            <div class="flex gap-2 mt-3">
+              <button onclick="deleteMessage('${msg._id}')"
+                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">
+                🗑 Delete
+              </button>
+              <button onclick="editMessage('${msg._id}', '${msg.content.replace(/'/g, "\\'")}')"
+                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
+                ✏ Edit
+              </button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      } catch (err) {
+        console.error("Load error:", err);
+        document.getElementById("messages").innerHTML =
+          `<p class="text-red-500">❌ Cannot connect to server</p>`;
+      }
     }
 
-    // Post new message
+    // 新增留言
     document.getElementById("messageForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const name = document.getElementById("name").value;
-      const content = document.getElementById("content").value;
+      const name = document.getElementById("name").value.trim();
+      const content = document.getElementById("content").value.trim();
+
+      if (!name || !content) return;
 
       await fetch(API_URL, {
         method: "POST",
@@ -82,13 +100,13 @@
       loadMessages();
     });
 
-    // Delete
+    // 刪除留言
     async function deleteMessage(id) {
       await fetch(`${API_URL}/${id}`, { method: "DELETE" });
       loadMessages();
     }
 
-    // Edit
+    // 編輯留言
     async function editMessage(id, oldContent) {
       const newContent = prompt("Edit your message:", oldContent);
       if (!newContent) return;
@@ -102,7 +120,7 @@
       loadMessages();
     }
 
-    // Init
+    // 初始化
     loadMessages();
   </script>
 </body>

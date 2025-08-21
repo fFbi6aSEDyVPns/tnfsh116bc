@@ -1,6 +1,11 @@
 import express from "express";
 import cors from "cors";
-import { query } from "./db.js";
+import {
+  getMessages,
+  addMessage,
+  updateMessage,
+  deleteMessage,
+} from "./db.js";
 
 const app = express();
 app.use(cors());
@@ -11,7 +16,7 @@ app.use(express.json());
 // -----------------------------
 app.get("/messages", async (req, res) => {
   try {
-    const rows = await query("SELECT * FROM messages ORDER BY created_at DESC");
+    const rows = await getMessages();
     res.json({ success: true, data: rows });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
@@ -25,21 +30,14 @@ app.post("/messages", async (req, res) => {
   const { name, content } = req.body;
 
   if (!name || !content) {
-    return res.status(400).json({ success: false, error: "Name and content required" });
+    return res
+      .status(400)
+      .json({ success: false, error: "Name and content required" });
   }
 
   try {
-    const result = await query(
-      "INSERT INTO messages (name, content) VALUES (?, ?) RETURNING id, name, content, created_at",
-      [name, content]
-    );
-
-    if (Array.isArray(result) && result.length > 0) {
-      res.json({ success: true, data: result[0] });
-    } else {
-      const rows = await query("SELECT * FROM messages ORDER BY created_at DESC LIMIT 1");
-      res.json({ success: true, data: rows[0] });
-    }
+    const result = await addMessage(name, content);
+    res.json({ success: true, data: result });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -51,7 +49,7 @@ app.post("/messages", async (req, res) => {
 app.delete("/messages/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await query("DELETE FROM messages WHERE id = ?", [id]);
+    const result = await deleteMessage(id);
     if (result.success) {
       res.json({ success: true, message: `Message ${id} deleted` });
     } else {
@@ -74,14 +72,9 @@ app.put("/messages/:id", async (req, res) => {
   }
 
   try {
-    const result = await query(
-      "UPDATE messages SET content = ? WHERE id = ?",
-      [content, id]
-    );
-
+    const result = await updateMessage(id, content);
     if (result.success) {
-      const rows = await query("SELECT * FROM messages WHERE id = ?", [id]);
-      res.json({ success: true, data: rows[0] });
+      res.json({ success: true, data: { id, content } });
     } else {
       res.status(404).json({ success: false, error: "Message not found" });
     }
