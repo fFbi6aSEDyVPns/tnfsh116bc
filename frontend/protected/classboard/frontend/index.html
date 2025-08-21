@@ -123,5 +123,20 @@
     // 初始化
     loadMessages();
   </script>
+
+
+  <script type="module">
+  import { API } from "../../../config.js";  <!-- 三層回去 -->
+
+  async function loadMessages() {
+    const res = await fetch(API.messages);
+    const messages = await res.json();
+    console.log(messages);
+  }
+
+  loadMessages();
+</script>
+
+
 </body>
 </html>

@@ -56,5 +56,20 @@
     </div>
   </div>
   <script src="schedule.js"></script>
+
+
+  <script type="module">
+  import { API } from "../../config.js";  <!-- 注意路徑要回到上層 -->
+
+  async function loadEvents() {
+    const res = await fetch(API.calendar);
+    const events = await res.json();
+    console.log(events);
+  }
+
+  loadEvents();
+</script>
+
+
 </body>
 </html>
