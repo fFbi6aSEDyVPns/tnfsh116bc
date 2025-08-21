@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {
+  init,
   getMessages,
   addMessage,
   updateMessage,
@@ -12,7 +13,17 @@ app.use(cors());
 app.use(express.json());
 
 // -----------------------------
-// Get all messages
+// Health check route
+// -----------------------------
+app.get("/health", (req, res) => {
+  if (!global.dbConnected) {
+    return res.status(500).json({ status: "error", message: "DB not connected" });
+  }
+  res.json({ status: "ok" });
+});
+
+// -----------------------------
+// Routes
 // -----------------------------
 app.get("/messages", async (req, res) => {
   try {
@@ -23,12 +34,8 @@ app.get("/messages", async (req, res) => {
   }
 });
 
-// -----------------------------
-// Post a new message
-// -----------------------------
 app.post("/messages", async (req, res) => {
   const { name, content } = req.body;
-
   if (!name || !content) {
     return res
       .status(400)
@@ -43,15 +50,11 @@ app.post("/messages", async (req, res) => {
   }
 });
 
-// -----------------------------
-// Delete a message
-// -----------------------------
 app.delete("/messages/:id", async (req, res) => {
-  const { id } = req.params;
   try {
-    const result = await deleteMessage(id);
+    const result = await deleteMessage(req.params.id);
     if (result.success) {
-      res.json({ success: true, message: `Message ${id} deleted` });
+      res.json({ success: true, message: `Message ${req.params.id} deleted` });
     } else {
       res.status(404).json({ success: false, error: "Message not found" });
     }
@@ -60,21 +63,16 @@ app.delete("/messages/:id", async (req, res) => {
   }
 });
 
-// -----------------------------
-// Edit a message
-// -----------------------------
 app.put("/messages/:id", async (req, res) => {
-  const { id } = req.params;
   const { content } = req.body;
-
   if (!content) {
     return res.status(400).json({ success: false, error: "Content required" });
   }
 
   try {
-    const result = await updateMessage(id, content);
+    const result = await updateMessage(req.params.id, content);
     if (result.success) {
-      res.json({ success: true, data: { id, content } });
+      res.json({ success: true, data: { id: req.params.id, content } });
     } else {
       res.status(404).json({ success: false, error: "Message not found" });
     }
@@ -83,5 +81,18 @@ app.put("/messages/:id", async (req, res) => {
   }
 });
 
+// -----------------------------
+// Start server after DB init
+// -----------------------------
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+
+init()
+  .then(() => {
+    global.dbConnected = true;
+    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    global.dbConnected = false;
+    console.error("❌ Failed to start server:", err.message);
+    process.exit(1);
+  });
