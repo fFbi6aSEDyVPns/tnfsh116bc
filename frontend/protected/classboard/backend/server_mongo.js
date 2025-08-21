@@ -10,7 +10,7 @@ import {
 
 const app = express();
 app.use(cors({
-  origin: "https://tnfsh116bc.onrender.com",
+  origin: "*", // 允許所有來源
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
@@ -98,3 +98,8 @@ init()
     console.error("❌ Failed to start server:", err.message);
     process.exit(1);
   });
+
+
+  app.get("/", (req, res) => {
+  res.send("Mongo API running ✅");
+});
