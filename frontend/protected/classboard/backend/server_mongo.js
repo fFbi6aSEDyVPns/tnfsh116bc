@@ -1,4 +1,4 @@
-import express from "express";
+/* import express from "express";
 import cors from "cors";
 import {
   init,
@@ -10,7 +10,7 @@ import {
 
 const app = express();
 app.use(cors({
-  origin: "*", // 允許所有來源
+  origin: ["https://tnfsh116bc.onrender.com"], // 允許所有來源
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
@@ -103,3 +103,4 @@ init()
   app.get("/", (req, res) => {
   res.send("Mongo API running ✅");
 });
+*/

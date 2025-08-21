@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <title>Class Board</title>
@@ -15,137 +15,20 @@
 
   <h1 class="text-3xl font-bold mb-6">📌 班級留言板</h1>
 
-  <!-- Add Message Form -->
-  <form id="messageForm" class="w-full max-w-md bg-white p-4 rounded-2xl shadow mb-6">
-    <input type="text" id="name" placeholder="Your name" required
-      class="w-full mb-3 p-2 border rounded" />
-    <textarea id="content" placeholder="Write a message..." required
-      class="w-full mb-3 p-2 border rounded"></textarea>
-    <button type="submit"
-      class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
-      + Post Message
-    </button>
-  </form>
-
-  <!-- Messages List -->
-  <div id="messages" class="w-full max-w-md space-y-4"></div>
-
-  <script>
-    // 自動判斷：如果是 localhost 用本地 API，否則用 Render 的 API
-    const API_URL =
-      window.location.hostname.includes("localhost")
-        ? "http://localhost:3000/messages"
-        : "https://tnfsh116bc.onrender.com/message"; // 👈 改成你 Render 的網址
-
-    // 載入所有留言
-    async function loadMessages() {
-      try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-
-        const container = document.getElementById("messages");
-        container.innerHTML = "";
-
-        if (!data.success) {
-          container.innerHTML = `<p class="text-red-500">⚠️ Failed to load messages</p>`;
-          return;
-        }
-
-        data.data.forEach(msg => {
-          const div = document.createElement("div");
-          div.className = "bg-white p-4 rounded-2xl shadow flex flex-col";
-
-          div.innerHTML = `
-            <div class="flex justify-between items-center">
-              <span class="font-bold">${msg.name}</span>
-              <span class="text-sm text-gray-500">${new Date(msg.created_at).toLocaleString()}</span>
-            </div>
-            <p class="mt-2">${msg.content}</p>
-
-            <div class="flex gap-2 mt-3">
-              <button onclick="deleteMessage('${msg._id}')"
-                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">
-                🗑 Delete
-              </button>
-              <button onclick="editMessage('${msg._id}', '${msg.content.replace(/'/g, "\\'")}')"
-                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
-                ✏ Edit
-              </button>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-      } catch (err) {
-        console.error("Load error:", err);
-        document.getElementById("messages").innerHTML =
-          `<p class="text-red-500">❌ Cannot connect to server</p>`;
-      }
-    }
-
-    // 新增留言
-    document.getElementById("messageForm").addEventListener("submit", async e => {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const content = document.getElementById("content").value.trim();
-
-      if (!name || !content) return;
-
-      await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, content })
-      });
-
-      e.target.reset();
-      loadMessages();
-    });
-
-    // 刪除留言
-    async function deleteMessage(id) {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-      loadMessages();
-    }
-
-    // 編輯留言
-    async function editMessage(id, oldContent) {
-      const newContent = prompt("Edit your message:", oldContent);
-      if (!newContent) return;
-
-      await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: newContent })
-      });
-
-      loadMessages();
-    }
-
-    // 初始化
-    loadMessages();
-  </script>
-
-
-  <script type="module">
-  import { API } from "../../../config.js";  <!-- 三層回去 -->
-
-  async function loadMessages() {
-    const res = await fetch(API.messages);
-    const messages = await res.json();
-    console.log(messages);
-  }
-
-  loadMessages();
+  <!-- Giscus 留言區 -->
+  <script src="https://giscus.app/client.js"
+        data-repo="fFbi6aSEDyVPns/tnfsh116bc"
+        data-repo-id="R_kgDOPdGagw"
+        data-mapping="number"
+        data-term="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
 </script>
-
-<script type="module">
-  import { API } from "../../config.js";
-
-  fetch(API.messages)
-    .then(res => res.json())
-    .then(data => console.log("✅ Messages:", data))
-    .catch(err => console.error("❌ Load error:", err));
-</script>
-
 
 </body>
 </html>

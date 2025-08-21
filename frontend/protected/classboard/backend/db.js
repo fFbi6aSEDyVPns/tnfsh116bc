@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+/* import { MongoClient, ObjectId } from "mongodb";
 
 let client, db, messages;
 
@@ -49,3 +49,4 @@ async function deleteMessage(id) {
 }
 
 export { init, getMessages, addMessage, updateMessage, deleteMessage };
+*/
