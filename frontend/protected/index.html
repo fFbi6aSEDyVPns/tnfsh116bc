@@ -24,6 +24,7 @@
     <!-- Desktop Menu -->
     <div class="hidden md:flex space-x-6">
       <a href="calendar.html" class="nav-link">Calender</a>
+      <a href="classboard/frontend/index.html" class="nav-link">Class Board 留言板</a>
       <a href="../index.html" class="nav-link" onclick="logout()">Logout</a>
     </div>
 
@@ -41,19 +42,21 @@
   <!-- Mobile Dropdown Menu with animation -->
   <div id="menu" class="overflow-hidden max-h-0 transition-all duration-300 ease-in-out md:hidden bg-white shadow-lg">
     <a href="calendar.html" class="block px-6 py-2 border-b hover:bg-gray-100">Calender</a>
+    <a href="classboard/frontend/index.html" class="block px-6 py-2 border-b hover:bg-gray-100">Class Board 留言板</a>
     <a href="../index.html" class="block px-6 py-2 hover:bg-gray-100">Logout</a>
   </div>
 </nav>
 
 <section class="pt-36 pb-12">
   <h1> Welcome to 17's Private Space!</h1>
-
+  <br>
   <button id="down-b" onclick="goCalendar()">📅 Go to Calendar</button><br>
+  <button id="down-b" onclick="goClassboard()">📌 Go to 班級留言板</button><br><br>
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSdklU7DE60t6ctXlnCaaOiW8URGIWOjzFH7xeBBv6Qt9euGcA/viewform" target="_blank">
     <button id="down-b">網站老師介紹</button>
   </a><br>
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSeWirrGsbfapjcsrGBbXVnnki6AGgfkH7vpJpN4gOtDk_bTJg/viewform" target="_blank">
-    <button id="down-b">網站117學生介紹</button>
+    <button id="down-b">網站117學生介紹(or自介)</button>
   </a><br>
   <a href="https://docs.google.com/forms/d/e/1FAIpQLScs2K7OXIKI7Zky2a9QbeTs2lt5jbUenkeBCPDpJgbLnX0UkQ/viewform?fbclid=IwY2xjawMSVtpleHRuA2FlbQIxMQBicmlkETFHc3M0bmFlQjlnd0RFRmVjAR4SHREf-QyAjNVilTwPAbdIl16fidWhHqnm2kkTpBtKssIeg33qqRyKpLBSIg_aem_JYBUi69qz6iqhHsjylXvmw" target="_blank">
     <button id="down-b">網站內容及設計意見表</button>
@@ -73,6 +76,10 @@
       // 直接開 Node.js 保護的行事曆
       window.location.href = "/protected/calendar.html"; 
     }
+    function goClassboard() {
+      window.location.href = "/protected/classboard/frontend/index.html"; 
+    }
+
   </script>
 
   <script src="../script.js"></script>
