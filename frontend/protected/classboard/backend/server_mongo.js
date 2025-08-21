@@ -9,7 +9,11 @@ import {
 } from "./db.js";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://tnfsh116bc.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 app.use(express.json());
 
 // -----------------------------
