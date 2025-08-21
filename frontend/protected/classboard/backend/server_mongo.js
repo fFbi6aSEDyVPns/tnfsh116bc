@@ -37,9 +37,7 @@ app.get("/messages", async (req, res) => {
 app.post("/messages", async (req, res) => {
   const { name, content } = req.body;
   if (!name || !content) {
-    return res
-      .status(400)
-      .json({ success: false, error: "Name and content required" });
+    return res.status(400).json({ success: false, error: "Name and content required" });
   }
 
   try {
@@ -89,7 +87,7 @@ const PORT = process.env.PORT || 3000;
 init()
   .then(() => {
     global.dbConnected = true;
-    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`🚀 Mongo Server running on port ${PORT}`));
   })
   .catch((err) => {
     global.dbConnected = false;
